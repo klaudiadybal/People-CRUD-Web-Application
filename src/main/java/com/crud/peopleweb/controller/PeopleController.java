@@ -2,8 +2,10 @@ package com.crud.peopleweb.controller;
 
 import com.crud.peopleweb.dao.PeopleRepository;
 import com.crud.peopleweb.model.Person;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +38,14 @@ public class PeopleController {
     }
 
     @PostMapping
-    public String save(Person person){
+    public String save(@Valid Person person, Errors errors){
         System.out.println(person);
-        peopleRepository.save(person);
-        return "redirect:people";
+
+        if(!errors.hasErrors()) {
+            peopleRepository.save(person);
+            return "redirect:people";
+        }
+
+        return "people";
     }
 }

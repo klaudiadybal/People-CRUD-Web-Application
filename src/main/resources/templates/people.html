@@ -35,26 +35,31 @@
                 </tr>
                 </tbody>
             </table>
-            <form method="post" th:object="${person}">
+            <form method="post" th:object="${person}" novalidate>
                 <div class="mb-3">
                     <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" th:errorclass="is-invalid">
+                    <div id="firstNameValidation" class="invalid-feedback" th:errors="*{firstName}"></div>
                 </div>
                 <div class="mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" th:errorclass="is-invalid">
+                    <div id="lastNameValidation" class="invalid-feedback" th:errors="*{lastName}"></div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" th:field="*{email}">
+                    <input type="email" class="form-control" id="email" th:field="*{email}" th:errorclass="is-invalid">
+                    <div id="emailValidation" class="invalid-feedback" th:errors="*{email}"></div>
                 </div>
                 <div class="mb-3">
                     <label for="dateOfBirth" class="form-label">Date of birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" th:field="*{dob}">
+                    <input type="date" class="form-control" id="dateOfBirth" th:field="*{dob}" th:errorclass="is-invalid">
+                    <div id="dateOfBirthValidation" class="invalid-feedback" th:errors="*{dob}"></div>
                 </div>
                 <div class="mb-3">
                     <label for="salary" class="form-label">Salary</label>
-                    <input type="number" class="form-control" id="salary" th:field="*{salary}">
+                    <input type="number" class="form-control" id="salary" th:field="*{salary}" th:errorclass="is-invalid">
+                    <div id="salaryValidation" class="invalid-feedback" th:errors="*{salary}"></div>
                 </div>
 
                 <button type="submit" class="btn btn-dark">Submit</button>
