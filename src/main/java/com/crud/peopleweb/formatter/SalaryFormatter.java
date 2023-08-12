@@ -20,6 +20,6 @@ public class SalaryFormatter implements Formatter<BigDecimal> {
 
     @Override
     public String print(BigDecimal object, Locale locale) {
-        return NumberFormat.getCurrencyInstance(locale).format(object);
+        return NumberFormat.getCurrencyInstance(Locale.US).format(object);
     }
 }
