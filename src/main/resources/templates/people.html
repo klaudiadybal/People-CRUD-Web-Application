@@ -28,17 +28,18 @@
                         <td colspan="6" class="text-center">No data</td>
                     </tr>
                     <tr th:each="person : ${people}">
-                        <td><input type="checkbox" class="form-check-input" name="toDelete" th:value="${person.id}"></td>
+                        <td><input type="checkbox" class="form-check-input" name="toAffect" th:value="${person.id}"></td>
                         <td th:text="${person.id}"></td>
                         <td th:text="${person.firstName}"></td>
                         <td th:text="${person.lastName}"></td>
                         <td th:text="${person.email}"></td>
-                        <td th:text="${person.dob}"></td>
+                        <td th:text="${#temporals.format(person.dob, 'MMMM dd, yyyy')}"></td>
                         <td th:text="${{person.salary}}"></td>
                     </tr>
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-dark my-3" name="delete" value="true">Delete</button>
+                <button type="submit" class="btn btn-dark my-3" name="update" value="true">Update</button>
+                <button type="submit" class="btn btn-danger my-3" name="delete" value="true">Delete</button>
             </form>
 
             <form method="post" th:object="${person}" novalidate>
@@ -67,7 +68,7 @@
                     <input type="number" class="form-control" id="salary" th:field="*{salary}" th:errorclass="is-invalid">
                     <div id="salaryValidation" class="invalid-feedback" th:errors="*{salary}"></div>
                 </div>
-
+                <input type="hidden" th:field="*{id}">
                 <button type="submit" class="btn btn-dark">Save</button>
             </form>
         </div>

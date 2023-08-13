@@ -5,6 +5,7 @@ import com.crud.peopleweb.model.Person;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,12 +51,23 @@ public class PeopleController {
     }
 
     @PostMapping(params = "delete=true")
-    public String delete(@RequestParam Optional<List<Long>> toDelete){
-        System.out.println(toDelete);
-        if(toDelete.isPresent()){
-            peopleRepository.deleteAllById(toDelete.get());
+    public String delete(@RequestParam Optional<List<Long>> toAffect){
+        System.out.println(toAffect);
+        if(toAffect.isPresent()){
+            peopleRepository.deleteAllById(toAffect.get());
         }
 
         return "redirect:people";
+    }
+
+    @PostMapping(params = "update=true")
+    public String update(@RequestParam Optional<List<Long>> toAffect, Model model){
+        System.out.println(toAffect);
+        if(toAffect.isPresent()){
+            Optional<Person> person = peopleRepository.findById(toAffect.get().get(0));
+            model.addAttribute("person", person);
+        }
+
+        return "people";
     }
 }
