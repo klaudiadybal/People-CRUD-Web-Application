@@ -6,10 +6,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/people")
@@ -47,5 +47,15 @@ public class PeopleController {
         }
 
         return "people";
+    }
+
+    @PostMapping(params = "delete=true")
+    public String delete(@RequestParam Optional<List<Long>> toDelete){
+        System.out.println(toDelete);
+        if(toDelete.isPresent()){
+            peopleRepository.deleteAllById(toDelete.get());
+        }
+
+        return "redirect:people";
     }
 }
